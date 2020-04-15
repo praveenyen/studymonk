@@ -36,7 +36,7 @@ function App() {
 
   var allMovies = []
   if (imgData.images.length > 0) {
-    imgData.images.map((image, index) => {
+    imgData.images.map((image) => {
       image.results.forEach(movie => {
         allMovies.push(
           <div key={movie.id}>
@@ -47,6 +47,7 @@ function App() {
               <figure class="effect-zoe">
                 <img
                   src="https://i.imgur.com/FEDTpyE.gif"
+                  alt="images"
                   data-src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
                   className="card-img-top"
                 />
@@ -68,6 +69,7 @@ function App() {
           </div>
         )
       });
+      return null
     })
   }
 
