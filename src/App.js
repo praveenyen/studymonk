@@ -2,6 +2,7 @@ import React, { useReducer, useRef } from 'react';
 
 import { useFetch, useInfiniteScroll, useLazyLoading } from './customHooks'
 import './index.css';
+import './style.css';
 
 function App() {
   const imgReducer = (state, action) => {
@@ -24,13 +25,57 @@ function App() {
     }
   }
 
-  const [pager, pagerDispatch] = useReducer(pageReducer, { page: 0 })
+  const [pager, pagerDispatch] = useReducer(pageReducer, { page: 1 })
   const [imgData, imgDispatch] = useReducer(imgReducer, { images: [], fetching: true, })
 
   let bottomBoundaryRef = useRef(null);
   useFetch(pager, imgDispatch);
   useLazyLoading('.card-img-top', imgData.images)
   useInfiniteScroll(bottomBoundaryRef, pagerDispatch);
+
+
+  var allMovies = []
+  if (imgData.images.length > 0) {
+    imgData.images.map((image, index) => {
+      image.results.forEach(movie => {
+        allMovies.push(
+          <div key={movie.id}>
+            {/* <img
+              style={{
+                borderRadius: '0.5em'
+              }}
+              alt={movie.overview}
+              data-src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
+              className="card-img-top"
+              src={'https://i.imgur.com/FEDTpyE.gif'}
+            /> */}
+            <div class="grid">
+              <figure class="effect-zoe">
+                <img
+                  src="https://i.imgur.com/FEDTpyE.gif"
+                  alt={movie.overview}
+                  data-src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
+                  className="card-img-top"
+                  style={{
+                    borderRadius: '0.5em'
+                  }}
+                />
+                <figcaption>
+                  <h3>{movie.title}</h3>
+                  <p class="icon-links">
+                    <a href="#"><span class="icon-heart"></span></a>
+                  </p>
+                  <p class="description">
+                    {movie.overview}
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        )
+      });
+    })
+  }
 
   return (
     <div className="">
@@ -44,24 +89,7 @@ function App() {
 
       <div id='images' className="container">
         <div className="row">
-          {imgData.images.map((image, index) => {
-            const { author, download_url } = image
-            return (
-              <div key={index} className="card">
-                <div className="card-body ">
-                  <img
-                    alt={author}
-                    data-src={download_url}
-                    className="card-img-top"
-                    src={'https://picsum.photos/id/870/300/300?grayscale&blur=2'}
-                  />
-                </div>
-                <div className="card-footer">
-                  <p className="card-text text-center text-capitalize text-primary">Shot by: {author}</p>
-                </div>
-              </div>
-            )
-          })}
+          {allMovies}
         </div>
       </div>
 

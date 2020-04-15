@@ -4,7 +4,7 @@ import { useEffect, useCallback, useRef } from 'react';
 export const useFetch = (data, dispatch) => {
   useEffect(() => {
     dispatch({ type: 'FETCHING_IMAGES', fetching: true })
-    fetch(`https://picsum.photos/v2/list?page=${data.page}&limit=10`)
+    fetch(`https://api.themoviedb.org/3/discover/movie?api_key=77a45778dad72275e608c91c55adff4b&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${data.page}`)
       .then(data => data.json())
       .then(images => {
         dispatch({ type: 'STACK_IMAGES', images })
