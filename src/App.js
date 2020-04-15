@@ -40,33 +40,27 @@ function App() {
       image.results.forEach(movie => {
         allMovies.push(
           <div key={movie.id}>
-            {/* <img
-              style={{
-                borderRadius: '0.5em'
-              }}
-              alt={movie.overview}
-              data-src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
-              className="card-img-top"
-              src={'https://i.imgur.com/FEDTpyE.gif'}
-            /> */}
-            <div class="grid">
+            <div class="grid" style={{
+              borderRadius: '0.5em',
+              margin: '0.5em'
+            }}>
               <figure class="effect-zoe">
                 <img
                   src="https://i.imgur.com/FEDTpyE.gif"
-                  alt={movie.overview}
                   data-src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
                   className="card-img-top"
-                  style={{
-                    borderRadius: '0.5em'
-                  }}
                 />
-                <figcaption>
-                  <h3>{movie.title}</h3>
+                <figcaption
+                  style={{
+                    padding: '0.5em'
+                  }}
+                >
+                  <h4>{movie.title}</h4>
                   <p class="icon-links">
-                    <a href="#"><span class="icon-heart"></span></a>
+                    <i class="material-icons">thumb_up_alt</i>
                   </p>
                   <p class="description">
-                    {movie.overview}
+                    {movie.overview.slice(0, 100)}...
                   </p>
                 </figcaption>
               </figure>
@@ -82,7 +76,7 @@ function App() {
       <nav className="navbar bg-light">
         <div className="container">
           <a className="navbar-brand" href="/#">
-            <h2>Infinite scroll + image lazy loading</h2>
+            <h2>The Movie DB</h2>
           </a>
         </div>
       </nav>
@@ -95,7 +89,7 @@ function App() {
 
       {imgData.fetching && (
         <div className="text-center bg-secondary m-auto p-3">
-          <p className="m-0 text-white">Getting images</p>
+          <p className="m-0 text-white">Getting Movies</p>
         </div>
       )}
       <div id='page-bottom-boundary' style={{ border: '1px solid red' }} ref={bottomBoundaryRef}></div>
